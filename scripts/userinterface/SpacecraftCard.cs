@@ -10,7 +10,11 @@ namespace FlatLine.Scripts.UserInterface
 
         public void Deserialize(string path, string fileName)
         {
-            label.Text = fileName.Split('.')[0].ToUpper();
+            var spacecraftName = fileName.Split('.')[0];
+            var spacecraftTexture = GD.Load<Texture2D>("res://sprites/" + spacecraftName + ".png");
+
+            label.Text = spacecraftName.ToUpper();
+            textureRect.Texture = spacecraftTexture;
 
             button.Pressed += () =>
             {

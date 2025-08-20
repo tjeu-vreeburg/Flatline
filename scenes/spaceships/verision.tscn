@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://cqfkhggw57qsh" path="res://sounds/rcs_thrust.mp3" id="5_6le3t"]
 [ext_resource type="AudioStream" uid="uid://cpvtepxi5gdw7" path="res://sounds/booster_thrust.mp3" id="6_05unh"]
 [ext_resource type="Script" uid="uid://b7h3qfeawdsa5" path="res://scripts/spacecraft/SpacecraftParticles.cs" id="7_wr0qc"]
-[ext_resource type="Texture2D" uid="uid://2t1dq5qj2rvj" path="res://sprites/Spaceship_7.png" id="8_hh316"]
+[ext_resource type="Texture2D" uid="uid://2t1dq5qj2rvj" path="res://sprites/verision.png" id="8_hh316"]
 
 [sub_resource type="Curve" id="Curve_3dryh"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -62,6 +62,7 @@ rcsRightParticles = NodePath("LeftParticles")
 
 [node name="ThrustParticles" type="CPUParticles2D" parent="Particles"]
 position = Vector2(0, 45)
+emitting = false
 amount = 500
 lifetime = 0.25
 speed_scale = 0.5
