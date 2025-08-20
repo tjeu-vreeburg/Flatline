@@ -1,0 +1,69 @@
+[gd_scene load_steps=14 format=3 uid="uid://bfxhioq38an2a"]
+
+[ext_resource type="Script" uid="uid://7umxv8qr43d6" path="res://scripts/userinterface/SpacecraftCard.cs" id="1_npomm"]
+[ext_resource type="Texture2D" uid="uid://cwghnqsynj3cr" path="res://sprites/Spaceship_1.png" id="2_lqam7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_npomm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lqam7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8rgo1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4y6p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rnqx3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_usb3n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dd770"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ab7h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0l4wk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mlpou"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bjmqk"]
+
+[node name="SpacecraftCard" type="PanelContainer" node_paths=PackedStringArray("button", "textureRect", "label")]
+script = ExtResource("1_npomm")
+button = NodePath("Button")
+textureRect = NodePath("MarginContainer/VBoxContainer/TextureRect")
+label = NodePath("MarginContainer/VBoxContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "ELISION"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("2_lqam7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_npomm")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_lqam7")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8rgo1")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_q4y6p")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_rnqx3")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_usb3n")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_dd770")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6ab7h")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_0l4wk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_mlpou")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bjmqk")

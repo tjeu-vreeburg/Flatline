@@ -1,0 +1,124 @@
+[gd_scene load_steps=12 format=3 uid="uid://cntfiwpv4iwdf"]
+
+[ext_resource type="Script" uid="uid://v333ycqxbvys" path="res://scripts/spacecraft/Spacecraft.cs" id="1_xlv5l"]
+[ext_resource type="PackedScene" uid="uid://76nk60psrkbx" path="res://scenes/ammunition/bullet.tscn" id="2_ghaf8"]
+[ext_resource type="Script" uid="uid://dbe1wi4tcoa3j" path="res://scripts/spacecraft/SpacecraftSound.cs" id="3_mpsl2"]
+[ext_resource type="AudioStream" uid="uid://by8an3rwiewkj" path="res://sounds/laser_shot.mp3" id="4_k0san"]
+[ext_resource type="AudioStream" uid="uid://cqfkhggw57qsh" path="res://sounds/rcs_thrust.mp3" id="5_k2mgi"]
+[ext_resource type="AudioStream" uid="uid://cpvtepxi5gdw7" path="res://sounds/booster_thrust.mp3" id="6_5p8ef"]
+[ext_resource type="Script" uid="uid://b7h3qfeawdsa5" path="res://scripts/spacecraft/SpacecraftParticles.cs" id="7_7hc86"]
+[ext_resource type="Texture2D" uid="uid://bdorwkfjwi8jf" path="res://sprites/Spaceship_8.png" id="8_xlv5l"]
+
+[sub_resource type="Curve" id="Curve_3dryh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.432432, 0.49867), -2.09878, -2.09878, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_wowpa"]
+offsets = PackedFloat32Array(0.0850662, 0.291115, 0.536862, 1)
+colors = PackedColorArray(0.724879, 0.8982, 1, 1, 3.85046e-07, 0.879378, 0.760413, 1, 3.36915e-06, 0.929022, 0.45617, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_3dryh"]
+offsets = PackedFloat32Array(0.00877193, 0.561404, 1)
+colors = PackedColorArray(0.657681, 0.765096, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Elision" type="RigidBody2D" node_paths=PackedStringArray("camera")]
+gravity_scale = 0.0
+inertia = 100.0
+linear_damp = 0.1
+angular_damp = 0.025
+script = ExtResource("1_xlv5l")
+camera = NodePath("Camera2D")
+bulletScene = ExtResource("2_ghaf8")
+bulletMode = 2
+thrustPower = 2.5
+reverseThrustPower = 1.25
+rotationThrustPower = 5.0
+
+[node name="Sounds" type="Node2D" parent="." node_paths=PackedStringArray("spacecraft", "thrustSound", "rcsSound", "bulletSound")]
+script = ExtResource("3_mpsl2")
+spacecraft = NodePath("..")
+thrustSound = NodePath("ThrusterSound")
+rcsSound = NodePath("RCSSound")
+bulletSound = NodePath("BulletSound")
+
+[node name="BulletSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("4_k0san")
+volume_db = -16.0
+
+[node name="RCSSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_k2mgi")
+volume_db = -16.0
+
+[node name="ThrusterSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_5p8ef")
+volume_db = -16.0
+
+[node name="Particles" type="Node2D" parent="." node_paths=PackedStringArray("spacecraft", "thrustParticles", "rcsLeftParticles", "rcsRightParticles")]
+script = ExtResource("7_7hc86")
+spacecraft = NodePath("..")
+thrustParticles = NodePath("ThrustParticles")
+rcsLeftParticles = NodePath("RightParticles")
+rcsRightParticles = NodePath("LeftParticles")
+reversePosition = Vector2(12.39, 9.125)
+
+[node name="ThrustParticles" type="CPUParticles2D" parent="Particles"]
+position = Vector2(0, 4.82)
+rotation = -6.28319
+scale = Vector2(1.905, 1.905)
+amount = 200
+lifetime = 0.18
+speed_scale = 0.5
+local_coords = true
+direction = Vector2(0, 1)
+spread = 0.0
+initial_velocity_min = 250.0
+initial_velocity_max = 300.0
+scale_amount_min = 6.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_3dryh")
+color_ramp = SubResource("Gradient_wowpa")
+
+[node name="LeftParticles" type="CPUParticles2D" parent="Particles"]
+z_index = 10
+position = Vector2(-22.515, 12.39)
+amount = 100
+lifetime = 0.1
+speed_scale = 0.5
+lifetime_randomness = 0.2
+local_coords = true
+direction = Vector2(0, 1)
+spread = 19.87
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_3dryh")
+color_ramp = SubResource("Gradient_3dryh")
+
+[node name="RightParticles" type="CPUParticles2D" parent="Particles"]
+z_index = 10
+position = Vector2(22.515, 12.39)
+amount = 100
+lifetime = 0.1
+speed_scale = 0.5
+lifetime_randomness = 0.2
+local_coords = true
+direction = Vector2(0, 1)
+spread = 20.5
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_3dryh")
+color_ramp = SubResource("Gradient_3dryh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 3.14159
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_xlv5l")
+flip_v = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -53, 64, 41, 19, 16, 0, 53, -19, 15, -65, 43)
+
+[node name="Camera2D" type="Camera2D" parent="."]

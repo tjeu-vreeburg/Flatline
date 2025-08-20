@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://bh75nglrhuftd"]
+
+[ext_resource type="Script" uid="uid://ck0iq7mk00do4" path="res://scripts/spacecraft/SpacecraftHud.cs" id="1_3dryh"]
+[ext_resource type="Script" uid="uid://buyhdg2a5re00" path="res://scripts/GameManager.cs" id="1_lnu2h"]
+[ext_resource type="Script" uid="uid://c5pvwwriyav3q" path="res://scripts/environment/Starfield.cs" id="1_wrm1d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1l0tm"]
+bg_color = Color(0.165656, 0.165656, 0.165656, 0.705882)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("spacecraftHud", "starfield")]
+script = ExtResource("1_lnu2h")
+spacecraftHud = NodePath("CanvasLayer/Spacecraft HUD")
+starfield = NodePath("Starfield")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Spacecraft HUD" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("progressBar", "velocityLabel", "spacecraftLabel")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -238.765
+offset_top = -92.67
+offset_right = -19.765
+offset_bottom = -18.6699
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1l0tm")
+script = ExtResource("1_3dryh")
+progressBar = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ProgressBar")
+velocityLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Label2")
+spacecraftLabel = NodePath("MarginContainer/VBoxContainer/MarginContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Spacecraft HUD"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Spacecraft HUD/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Spacecraft HUD/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="CanvasLayer/Spacecraft HUD/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Elision"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Spacecraft HUD/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="CanvasLayer/Spacecraft HUD/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Velocity"
+
+[node name="Label2" type="Label" parent="CanvasLayer/Spacecraft HUD/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100 k/ph"
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Spacecraft HUD/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Spacecraft HUD/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Thrust                "
+
+[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/Spacecraft HUD/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Starfield" type="Node2D" parent="."]
+script = ExtResource("1_wrm1d")
+StarSpeedRange = Vector2(0.001, 0.02)
+StarSizeRange = Vector2(0.2, 1)
+StarCount = 1000
+ParallaxStrength = 0.05
